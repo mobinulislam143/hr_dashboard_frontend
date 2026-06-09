@@ -1,6 +1,6 @@
 import type { NextConfig } from 'next';
 
-const BACKEND_URL = process.env.NEXT_PUBLIC_API_URL || 'https://hr-dashbaord-backend-rho.vercel.app';
+const BACKEND_URL = 'https://hr-dashbaord-backend-rho.vercel.app';
 
 const nextConfig: NextConfig = {
   images: { remotePatterns: [] },
