@@ -11,7 +11,8 @@ import { toast } from 'sonner';
 import { useLoginMutation } from '@/store/api/authApi';
 import { useAppDispatch } from '@/store/hooks';
 import { setCredentials } from '@/store/slices/authSlice';
-
+import Image from 'next/image';
+import logo from '../../../../public/omiralogo.png';
 const schema = z.object({
   email:    z.string().email('Enter a valid email'),
   password: z.string().min(1, 'Password is required'),
@@ -46,9 +47,7 @@ export default function LoginPage() {
       <div className="w-full max-w-md relative z-10">
         <div className="text-center mb-8">
           <Link href="/" className="inline-flex items-center gap-2.5 mb-6">
-            <div className="w-10 h-10 rounded-xl bg-gradient-brand flex items-center justify-center shadow-lg">
-              <Zap className="w-5 h-5 text-white" />
-            </div>
+            <Image src={logo} alt="EASN Logo" className="h-10 w-10 rounded-lg object-contain" width={40} height={40} />
             <span className="font-bold text-xl text-white tracking-tight">Omira</span>
           </Link>
           <h1 className="text-2xl font-bold text-white mb-2">Welcome back</h1>

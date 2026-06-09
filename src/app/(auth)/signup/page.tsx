@@ -4,6 +4,8 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
+import Image from 'next/image';
+import logo from '../../../../public/omiralogo.png';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { Eye, EyeOff, Zap, Loader2, CheckCircle2 } from '@/components/ui/Icons';
@@ -13,17 +15,17 @@ import { useAppDispatch } from '@/store/hooks';
 import { setCredentials } from '@/store/slices/authSlice';
 
 const schema = z.object({
-  orgName:   z.string().min(2, 'Organization name required'),
+  orgName: z.string().min(2, 'Organization name required'),
   firstName: z.string().min(1, 'First name required'),
-  lastName:  z.string().min(1, 'Last name required'),
-  email:     z.string().email('Valid email required'),
-  password:  z.string().min(8, 'Minimum 8 characters'),
+  lastName: z.string().min(1, 'Last name required'),
+  email: z.string().email('Valid email required'),
+  password: z.string().min(8, 'Minimum 8 characters'),
 });
 type FormData = z.infer<typeof schema>;
 
 export default function SignupPage() {
   const [showPw, setShowPw] = useState(false);
-  const router   = useRouter();
+  const router = useRouter();
   const dispatch = useAppDispatch();
   const [register, { isLoading }] = useRegisterMutation();
 
@@ -48,10 +50,9 @@ export default function SignupPage() {
 
       <div className="w-full max-w-md relative z-10">
         <div className="text-center mb-8">
+          {/* <Link href="/" className="inline-flex items-center gap-2.5 mb-6"> */}
           <Link href="/" className="inline-flex items-center gap-2.5 mb-6">
-            <div className="w-10 h-10 rounded-xl bg-gradient-brand flex items-center justify-center shadow-lg">
-              <Zap className="w-5 h-5 text-white" />
-            </div>
+            <Image src={logo} alt="EASN Logo" className="h-10 w-10 rounded-lg object-contain" width={40} height={40} />
             <span className="font-bold text-xl text-white tracking-tight">Omira</span>
           </Link>
           <h1 className="text-2xl font-bold text-white mb-2">Create your workspace</h1>
