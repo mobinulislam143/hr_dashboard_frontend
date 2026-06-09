@@ -1,0 +1,158 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─── HSL CSS Variables (shadcn pattern — works with Tailwind color system) ── */
+@layer base {
+  :root {
+    --background:    220 33% 98%;
+    --foreground:    235 30% 10%;
+    --card:          0 0% 100%;
+    --card-foreground: 235 30% 10%;
+    --popover:       0 0% 100%;
+    --popover-foreground: 235 30% 10%;
+    --primary:       239 84% 67%;
+    --primary-foreground: 0 0% 100%;
+    --secondary:     220 14% 94%;
+    --secondary-foreground: 220 14% 30%;
+    --muted:         220 14% 94%;
+    --muted-foreground: 220 10% 50%;
+    --accent:        239 84% 97%;
+    --accent-foreground: 239 84% 40%;
+    --destructive:   0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+    --border:        220 14% 88%;
+    --input:         220 14% 91%;
+    --ring:          239 84% 67%;
+    --radius:        0.625rem;
+  }
+
+  .dark {
+    --background:    240 20% 6%;
+    --foreground:    240 15% 96%;
+    --card:          240 18% 10%;
+    --card-foreground: 240 15% 96%;
+    --popover:       240 18% 10%;
+    --popover-foreground: 240 15% 96%;
+    --primary:       239 84% 67%;
+    --primary-foreground: 0 0% 100%;
+    --secondary:     240 15% 16%;
+    --secondary-foreground: 240 10% 75%;
+    --muted:         240 15% 13%;
+    --muted-foreground: 240 8% 55%;
+    --accent:        240 15% 18%;
+    --accent-foreground: 239 84% 75%;
+    --destructive:   0 72% 51%;
+    --destructive-foreground: 0 0% 100%;
+    --border:        240 12% 20%;
+    --input:         240 15% 16%;
+    --ring:          239 84% 67%;
+  }
+}
+
+/* ─── Base resets ─────────────────────────────────────────────────────────── */
+@layer base {
+  * {
+    border-color: hsl(var(--border));
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar       { width: 5px; height: 5px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: hsl(var(--border)); border-radius: 9999px; }
+  ::-webkit-scrollbar-thumb:hover { background: hsl(var(--primary) / 0.5); }
+}
+
+/* ─── Component layer ─────────────────────────────────────────────────────── */
+@layer components {
+
+  /* Cards */
+  .card {
+    @apply bg-card text-card-foreground rounded-xl border border-border shadow-sm;
+  }
+
+  /* Sidebar link */
+  .sidebar-link {
+    @apply flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium
+           text-muted-foreground hover:text-foreground hover:bg-accent
+           transition-all duration-200 cursor-pointer;
+  }
+  .sidebar-link.active {
+    @apply bg-primary/10 text-primary;
+  }
+
+  /* Status badge */
+  .status-badge {
+    @apply inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold;
+  }
+
+  /* Metric card */
+  .metric-card {
+    @apply card p-6 hover:shadow-md transition-shadow duration-200;
+  }
+
+  /* Primary button */
+  .btn-primary {
+    @apply inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold
+           bg-primary text-primary-foreground hover:opacity-90 active:opacity-80
+           transition-all duration-200 shadow-sm disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+
+  /* Secondary button */
+  .btn-secondary {
+    @apply inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold
+           bg-secondary text-secondary-foreground hover:bg-accent
+           transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+
+  /* Danger button */
+  .btn-danger {
+    @apply inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold
+           bg-destructive text-destructive-foreground hover:opacity-90
+           transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+
+  /* Input */
+  .form-input {
+    @apply w-full px-3 py-2 rounded-lg text-sm outline-none transition-all duration-200
+           bg-input border border-border text-foreground
+           placeholder:text-muted-foreground
+           focus:border-primary focus:ring-2 focus:ring-primary/20;
+  }
+
+  /* Label */
+  .form-label {
+    @apply block text-sm font-medium text-foreground mb-1.5;
+  }
+
+  /* Tab button */
+  .tab-btn {
+    @apply px-4 py-2.5 text-sm font-medium border-b-2 transition-colors;
+  }
+  .tab-btn.active   { @apply border-primary text-primary; }
+  .tab-btn.inactive { @apply border-transparent text-muted-foreground hover:text-foreground; }
+
+  /* Gradient text */
+  .gradient-text {
+    background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Gradient brand bg */
+  .bg-gradient-brand {
+    background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+  }
+
+  /* Shimmer loading skeleton */
+  .skeleton {
+    @apply rounded-lg animate-pulse bg-muted;
+  }
+}
