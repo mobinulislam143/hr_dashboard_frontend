@@ -4,8 +4,26 @@ import { ActiveRep, RepScore, PerformanceEntry } from '@/types';
 interface RepListParams { business?: string; tier?: string; managerId?: string; page?: number; limit?: number; }
 interface RepListResponse { reps: ActiveRep[]; pagination: { page: number; limit: number; total: number } }
 
+export interface AddRepPayload {
+  fullName: string;
+  phone?: string;
+  email?: string;
+  city?: string;
+  state?: string;
+  business: string;
+  role: string;
+  recruitingSource?: string;
+  hireDate?: string;
+}
+
 export const repApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
+    addRep: builder.mutation<ActiveRep, AddRepPayload>({
+      query: (body) => ({ url: '/api/reps', method: 'POST', body }),
+      transformResponse: (res: any) => res.data,
+      invalidatesTags: ['Rep', 'Dashboard'],
+    }),
+
     getReps: builder.query<RepListResponse, RepListParams>({
       query: (params) => ({ url: '/api/reps', params }),
       transformResponse: (res: any) => res.data,
@@ -46,6 +64,7 @@ export const repApi = baseApi.injectEndpoints({
 });
 
 export const {
+  useAddRepMutation,
   useGetRepsQuery,
   useGetRepQuery,
   useScoreRepMutation,

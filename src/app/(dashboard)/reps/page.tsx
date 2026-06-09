@@ -4,14 +4,16 @@ import { useState } from 'react';
 import { useGetRepsQuery } from '@/store/api/repApi';
 import { Header } from '@/components/layout/Header';
 import { RepCard } from '@/components/reps/RepCard';
+import { AddRepModal } from '@/components/reps/AddRepModal';
 import { BUSINESS_LABELS, Business } from '@/types';
-import { Loader2, Users } from '@/components/ui/Icons';
+import { Loader2, Users, Plus } from '@/components/ui/Icons';
 
 export default function RepsPage() {
   const [business, setBusiness] = useState('');
   const [tier, setTier] = useState('');
+  const [showAddModal, setShowAddModal] = useState(false);
 
-  const { data, isLoading } = useGetRepsQuery({
+  const { data, isLoading, refetch } = useGetRepsQuery({
     ...(business && { business }),
     ...(tier     && { tier }),
     limit: 100,
@@ -21,7 +23,16 @@ export default function RepsPage() {
 
   return (
     <div>
-      <Header title="Active Reps" subtitle={`${reps.length} active reps`} />
+      <Header
+        title="Active Reps"
+        subtitle={`${reps.length} active reps`}
+        actions={
+          <button onClick={() => setShowAddModal(true)} className="btn-primary">
+            <Plus className="w-4 h-4" />
+            Add Rep
+          </button>
+        }
+      />
 
       <div className="p-6 animate-fade-in">
         {/* Filters */}
@@ -61,6 +72,13 @@ export default function RepsPage() {
           </div>
         )}
       </div>
+
+      {showAddModal && (
+        <AddRepModal
+          onClose={() => setShowAddModal(false)}
+          onSuccess={() => { setShowAddModal(false); refetch(); }}
+        />
+      )}
     </div>
   );
 }
