@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_URL || 'https://hr-dashbaord-backend-six.vercel.app',
+  baseURL: '',
   headers: { 'Content-Type': 'application/json' },
 });
 
